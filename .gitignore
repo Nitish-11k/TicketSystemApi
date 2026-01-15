@@ -1,0 +1,10 @@
+# Ignore build results
+bin/
+obj/
+
+appsettings.json/
+
+# Ignore user-specific files
+.vscode/
+*.user
+*.suo
