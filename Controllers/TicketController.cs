@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TicketSystemApi.Services;
 using TicketSystemApi.DTOs;
+using TicketSystemApi.Models;
 using System.Threading.Tasks;
 using System.Linq;
 
@@ -52,6 +53,12 @@ namespace TicketSystemApi.Controllers
         {
             await _ticketService.CloseTicketAsync(id);
             return Ok(new { message = "Ticket closed" });
+        }
+        [HttpPatch("{id}/status")]
+        public async Task<IActionResult> UpdateStatus(int id, [FromBody] TicketStatus status)
+        {
+          await _ticketService.UpdateStatusAsync(id, status);
+          return Ok(new { message = "Status updated successfully" });
         }
   }
 }

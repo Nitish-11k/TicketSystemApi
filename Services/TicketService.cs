@@ -63,6 +63,7 @@ namespace TicketSystemApi.Services
           }
           ticket.AgentId = agentId;
           ticket.Status = TicketStatus.InProgress;
+          ticket.AssignedAt = DateTime.UtcNow;
           await _context.SaveChangesAsync();
       }
 
@@ -77,5 +78,19 @@ namespace TicketSystemApi.Services
           ticket.ClosedAt = DateTime.UtcNow;
           await _context.SaveChangesAsync();
       }
+      public async Task UpdateStatusAsync(int id, TicketStatus newStatus)
+      {
+        var ticket = await _context.Tickets.FindAsync(id);
+        if (ticket == null) throw new KeyNotFoundException("Ticket not found");
+
+        // Rule: Closed tickets cannot be updated
+        if (ticket.Status == TicketStatus.Closed && newStatus != TicketStatus.Closed)
+        {
+          throw new InvalidOperationException("Cannot reopen a closed ticket.");
+        }
+
+        ticket.Status = newStatus;
+        await _context.SaveChangesAsync();
+    }
     }
 }

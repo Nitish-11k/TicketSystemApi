@@ -36,6 +36,8 @@ namespace TicketSystemApi.Models
         public DateTime CreatedAt {get; set;} = DateTime.UtcNow;
         public DateTime? ClosedAt { get; set; }
 
+        public DateTime? AssignedAt { get; set; }
+
         public int? AgentId {get; set;}
 
         public Agent? Agent {get; set;}

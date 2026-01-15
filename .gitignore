@@ -2,7 +2,7 @@
 bin/
 obj/
 
-appsettings.json/
+appsettings.json
 
 # Ignore user-specific files
 .vscode/
